@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tsbuildinfo
+**/.ace-session-store/
+**/.ace-demo-session/
+**/.data/
+
+*.md
+!README.md

@@ -1,0 +1,30 @@
+{
+  "name": "chaoschain-ace-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Session Key SDK and OpenClaw skill for ACE Phase 0 x402 payments",
+  "workspaces": [
+    "packages/session-key-sdk",
+    "packages/demo-compute-api",
+    "examples"
+  ],
+  "scripts": {
+    "build": "npm run build -w @chaoschain/ace-session-key-sdk",
+    "typecheck": "npm run build -w @chaoschain/ace-session-key-sdk && npm run typecheck -w @chaoschain/ace-session-key-sdk && npm run typecheck -w @chaoschain/demo-compute-api && npm run typecheck -w @chaoschain/ace-examples",
+    "test": "npm run build && tsx --test packages/session-key-sdk/src/*.test.ts",
+    "check:no-nested-compute-api": "node -e \"const fs=require('fs'); const p='packages/demo-compute-api/packages'; if (fs.existsSync(p)) { console.error('Unexpected nested directory: ' + p); process.exit(1); } console.log('No nested demo-compute-api packages directory detected.');\"",
+    "pack:dry-run:sdk": "npm run build -w @chaoschain/ace-session-key-sdk && npm pack --dry-run -w @chaoschain/ace-session-key-sdk",
+    "dev:compute": "npm run dev -w @chaoschain/demo-compute-api",
+    "demo": "npm run phase0 -w @chaoschain/ace-examples"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaoschain-labs/chaoschain-ace-sdk.git"
+  },
+  "license": "MIT"
+}

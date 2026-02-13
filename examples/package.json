@@ -1,0 +1,13 @@
+{
+  "name": "@chaoschain/ace-examples",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "phase0": "tsx src/phase0.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@chaoschain/ace-session-key-sdk": "0.1.0",
+    "ethers": "^6.13.5"
+  }
+}

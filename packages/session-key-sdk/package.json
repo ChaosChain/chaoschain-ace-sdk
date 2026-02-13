@@ -1,0 +1,25 @@
+{
+  "name": "@chaoschain/ace-session-key-sdk",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "node -e \"const fs=require('fs'); fs.rmSync('dist',{recursive:true,force:true}); fs.rmSync('tsconfig.tsbuildinfo',{force:true});\" && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "ethers": "^6.13.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaoschain-labs/chaoschain-ace-sdk.git",
+    "directory": "packages/session-key-sdk"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["x402", "payments", "session-key", "ace", "chaoschain"]
+}
