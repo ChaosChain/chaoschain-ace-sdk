@@ -1,0 +1,47 @@
+# Publish @chaoschain/ace-session-key-sdk to npm using Trusted Publishers (OIDC).
+# See: https://docs.npmjs.com/trusted-publishers
+#
+# One-time setup on npmjs.com:
+#   1. Package → Settings → Trusted Publisher → GitHub Actions
+#   2. Set: Organization/user, Repository, Workflow filename: publish.yml
+#
+# To release: create and push a version tag (e.g. v0.1.0).
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write   # Required for OIDC with npm
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Guard nested demo-compute-api path
+        run: npm run check:no-nested-compute-api
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Publish to npm
+        run: npm publish -w @chaoschain/ace-session-key-sdk --access public --provenance
